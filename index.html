@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneo de Dominó</title>
+    <title>LIGA DOMINO MX</title>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -46,7 +46,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 0;
+            padding: 0;
+            transition: max-height 0.3s ease-in-out;
+            overflow: hidden;
+            max-height: 0;
         }
 
         nav a {
@@ -54,10 +57,16 @@
             text-decoration: none;
             margin: 5px 20px;
             font-size: 16px;
+            padding: 10px 0;
+            display: block;
         }
 
         nav a:hover {
             text-decoration: underline;
+        }
+
+        .menu-visible nav {
+            max-height: 200px;
         }
 
         .container {
@@ -155,17 +164,7 @@
             }
 
             nav {
-                display: none;
-            }
-
-            .menu-visible nav {
-                display: flex;
                 flex-direction: column;
-            }
-
-            nav a {
-                margin: 5px 0;
-                font-size: 14px;
             }
 
             .container {
@@ -197,6 +196,7 @@
 
             nav {
                 display: flex !important;
+                max-height: none;
             }
         }
     </style>
