@@ -6,7 +6,7 @@
     <title>Torneo de Dominó</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
@@ -22,6 +22,8 @@
         }
 
         header h1 {
+            text-align: center;
+            color: white;
             font-size: 1.5em;
             margin: 0;
         }
@@ -124,6 +126,20 @@
             background-color: #d4edda !important;
         }
 
+        .table-description {
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .table-description p {
+            margin: 5px 0;
+        }
+
         @media (max-width: 768px) {
             header {
                 padding: 15px;
@@ -181,7 +197,7 @@
 </head>
 <body>
     <header>
-        <h1>Torneo de Dominó</h1>
+        <h1>LIGA DOMINO MX</h1>
         <div class="hamburger" onclick="toggleMenu()">
             <div></div>
             <div></div>
@@ -213,6 +229,14 @@
                 <!-- Los equipos se agregarán dinámicamente aquí -->
             </tbody>
         </table>
+        <!-- Texto explicativo -->
+        <div class="table-description">
+            <p><strong>JJ</strong>: Juegos Jugados</p>
+            <p><strong>G</strong>: Juegos Ganados</p>
+            <p><strong>P</strong>: Juegos Perdidos</p>
+            <p><strong>PTS(D)</strong>: Puntos de Domino</p>
+            <p><strong>PTS</strong>: Puntos de Victorias</p>
+        </div>
     </div>
 
     <div class="container hidden" id="jornadas-section">
