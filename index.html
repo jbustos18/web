@@ -70,6 +70,11 @@
             text-align: center;
         }
 
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -173,6 +178,7 @@
 
             th, td {
                 padding: 6px;
+                white-space: nowrap;
             }
 
             h1, h2 {
@@ -213,23 +219,24 @@
 
     <div class="container" id="clasificacion-section">
         <h2>Tabla de Clasificación</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Pareja</th>
-                    <th>JJ</th>
-                    <th>G</th>
-                    <th>P</th>
-                    <th>PTS(D)</th>
-                    <th>PTS</th>
-                </tr>
-            </thead>
-            <tbody id="teamTableBody">
-                <!-- Los equipos se agregarán dinámicamente aquí -->
-            </tbody>
-        </table>
-        <!-- Texto explicativo -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Pareja</th>
+                        <th>JJ</th>
+                        <th>G</th>
+                        <th>P</th>
+                        <th>PTS(D)</th>
+                        <th>PTS</th>
+                    </tr>
+                </thead>
+                <tbody id="teamTableBody">
+                    <!-- Los equipos se agregarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
         <div class="table-description">
             <p><strong>JJ</strong>: Juegos Jugados</p>
             <p><strong>G</strong>: Juegos Ganados</p>
@@ -241,17 +248,19 @@
 
     <div class="container hidden" id="jornadas-section">
         <h2 id="jornada-title">Jornada 1</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Pareja Local</th>
-                    <th>Pareja Visitante</th>
-                </tr>
-            </thead>
-            <tbody id="jornadasTableBody">
-                <!-- Los enfrentamientos se agregarán dinámicamente aquí -->
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pareja Local</th>
+                        <th>Pareja Visitante</th>
+                    </tr>
+                </thead>
+                <tbody id="jornadasTableBody">
+                    <!-- Los enfrentamientos se agregarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
         <div class="btn-container">
             <button onclick="previousJornada()">Jornada Anterior</button>
             <button onclick="nextJornada()">Siguiente Jornada</button>
@@ -260,21 +269,23 @@
 
     <div class="container hidden" id="resultados-section">
         <h2 id="resultados-title">Resultados</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Jornada</th>
-                    <th>Pareja</th>
-                    <th>PTS</th>
-                    <th>Pareja</th>
-                    <th>PTS</th>
-                    <th>Resultado</th>
-                </tr>
-            </thead>
-            <tbody id="resultadosTableBody">
-                <!-- Los resultados se agregarán dinámicamente aquí -->
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jornada</th>
+                        <th>Pareja</th>
+                        <th>PTS</th>
+                        <th>Pareja</th>
+                        <th>PTS</th>
+                        <th>Resultado</th>
+                    </tr>
+                </thead>
+                <tbody id="resultadosTableBody">
+                    <!-- Los resultados se agregarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
