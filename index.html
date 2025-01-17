@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo de Dominó</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        header h1 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+        }
+
+        nav {
+            background-color: #00509e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 5px 20px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        h1, h2 {
+            color: black;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        thead th {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            width: 48%;
+            padding: 10px;
+            background-color: #00509e;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #003366;
+        }
+
+        .winner {
+            background-color: #d4edda !important;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .menu-visible nav {
+                display: flex;
+                flex-direction: column;
+            }
+
+            nav a {
+                margin: 5px 0;
+                font-size: 14px;
+            }
+
+            .container {
+                margin: 10px;
+            }
+
+            table {
+                font-size: 0.8em;
+            }
+
+            th, td {
+                padding: 6px;
+            }
+
+            h1, h2 {
+                font-size: 1.2em;
+            }
+
+            button {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .hamburger {
+                display: none;
+            }
+
+            nav {
+                display: flex !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Torneo de Dominó</h1>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#" onclick="showSection('clasificacion')">Clasificación</a>
+        <a href="#" onclick="showSection('jornadas')">Jornadas</a>
+        <a href="#" onclick="showSection('resultados')">Resultados</a>
+    </nav>
+
+    <div class="container" id="clasificacion-section">
+        <h2>Tabla de Clasificación</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Pareja</th>
+                    <th>JJ</th>
+                    <th>G</th>
+                    <th>P</th>
+                    <th>PTS(D)</th>
+                    <th>PTS</th>
+                </tr>
+            </thead>
+            <tbody id="teamTableBody">
+                <!-- Los equipos se agregarán dinámicamente aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container hidden" id="jornadas-section">
+        <h2 id="jornada-title">Jornada 1</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pareja Local</th>
+                    <th>Pareja Visitante</th>
+                </tr>
+            </thead>
+            <tbody id="jornadasTableBody">
+                <!-- Los enfrentamientos se agregarán dinámicamente aquí -->
+            </tbody>
+        </table>
+        <div class="btn-container">
+            <button onclick="previousJornada()">Jornada Anterior</button>
+            <button onclick="nextJornada()">Siguiente Jornada</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="resultados-section">
+        <h2 id="resultados-title">Resultados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Jornada</th>
+                    <th>Pareja</th>
+                    <th>PTS</th>
+                    <th>Pareja</th>
+                    <th>PTS</th>
+                    <th>Resultado</th>
+                </tr>
+            </thead>
+            <tbody id="resultadosTableBody">
+                <!-- Los resultados se agregarán dinámicamente aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let currentJornada = 1;
+
+        function toggleMenu() {
+            document.body.classList.toggle('menu-visible');
+        }
+
+        function showSection(section) {
+            document.getElementById('clasificacion-section').classList.add('hidden');
+            document.getElementById('jornadas-section').classList.add('hidden');
+            document.getElementById('resultados-section').classList.add('hidden');
+
+            if (section === 'clasificacion') {
+                document.getElementById('clasificacion-section').classList.remove('hidden');
+            } else if (section === 'jornadas') {
+                document.getElementById('jornadas-section').classList.remove('hidden');
+                loadJornada(currentJornada);
+            } else if (section === 'resultados') {
+                document.getElementById('resultados-section').classList.remove('hidden');
+                loadResultados();
+            }
+        }
+
+        async function loadExcel() {
+            const response = await fetch('tabla_torneo_domino.xlsx'); // Ruta del archivo Excel
+            const data = await response.arrayBuffer();
+            const workbook = XLSX.read(data, { type: 'array' });
+
+            // Cargar equipos
+            const teamsSheet = workbook.Sheets[workbook.SheetNames[0]];
+            const teams = XLSX.utils.sheet_to_json(teamsSheet);
+            renderTable(teams);
+
+            // Cargar jornadas
+            window.jornadas = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[1]]);
+
+            // Cargar resultados
+            window.resultados = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[2]]);
+        }
+
+        function renderTable(teams) {
+            const tbody = document.getElementById('teamTableBody');
+            tbody.innerHTML = '';
+
+            teams.forEach((team, index) => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${team["Pareja"]}</td>
+                    <td>${team["JJ"]}</td>
+                    <td>${team["G"]}</td>
+                    <td>${team["P"]}</td>
+                    <td>${team["PTS(D)"]}</td>
+                    <td>${team["PTS"]}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        function loadJornada(jornadaNumber) {
+            const tbody = document.getElementById('jornadasTableBody');
+            const jornadaTitle = document.getElementById('jornada-title');
+
+            tbody.innerHTML = '';
+            jornadaTitle.textContent = `Jornada ${jornadaNumber}`;
+
+            const jornada = window.jornadas.filter(j => j.Jornada === jornadaNumber);
+
+            jornada.forEach(match => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${match["Pareja Local"]}</td>
+                    <td>${match["Pareja Visitante"]}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        function nextJornada() {
+            currentJornada++;
+            if (currentJornada > window.jornadas[window.jornadas.length - 1].Jornada) {
+                currentJornada = window.jornadas[window.jornadas.length - 1].Jornada;
+            }
+            loadJornada(currentJornada);
+        }
+
+        function previousJornada() {
+            currentJornada--;
+            if (currentJornada < 1) {
+                currentJornada = 1;
+            }
+            loadJornada(currentJornada);
+        }
+
+        function loadResultados() {
+            const tbody = document.getElementById('resultadosTableBody');
+            tbody.innerHTML = '';
+
+            window.resultados.forEach(result => {
+                const row = document.createElement('tr');
+
+                const winnerClass = result["Resultado"] === "Local" ? "winner" : "";
+                const loserClass = result["Resultado"] === "Visitante" ? "winner" : "";
+
+                row.innerHTML = `
+                    <td>${result["Jornada"]}</td>
+                    <td class="${winnerClass}">${result["Pareja"]}</td>
+                    <td class="${winnerClass}">${result["PTS"]}</td>
+                    <td class="${loserClass}">${result["Pareja"]}</td>
+                    <td class="${loserClass}">${result["PTS"]}</td>
+                    <td>${result["Resultado"]}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Cargar automáticamente el archivo Excel al cargar la página
+        document.addEventListener('DOMContentLoaded', loadExcel);
+    </script>
+
+    <!-- Incluir la librería SheetJS para leer Excel -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.0/package/dist/xlsx.full.min.js"></script>
+</body>
+</html>
