@@ -4,206 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIGA DOMINO MX</title>
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-
-        header {
-            background-color: #003366;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-        }
-
-        header h1 {
-            text-align: center;
-            color: white;
-            font-size: 1.5em;
-            margin: 0;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 4px 0;
-        }
-
-        nav {
-            background-color: #00509e;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-            transition: max-height 0.3s ease-in-out;
-            overflow: hidden;
-            max-height: 0;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 5px 20px;
-            font-size: 16px;
-            padding: 10px 0;
-            display: block;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .menu-visible nav {
-            max-height: 200px;
-        }
-
-        .container {
-            margin: 20px;
-        }
-
-        h1, h2 {
-            color: black;
-            font-size: 1.5em;
-            text-align: center;
-        }
-
-        .table-container {
-            overflow-x: auto;
-            width: 100%;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            font-size: 0.9em;
-        }
-
-        thead th {
-            background-color: #003366;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-
-        tbody tr:nth-child(odd) {
-            background-color: #f2f2f2;
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: white;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            text-align: center;
-            padding: 8px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        button {
-            width: 48%;
-            padding: 10px;
-            background-color: #00509e;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #003366;
-        }
-
-        .winner {
-            background-color: #d4edda !important;
-        }
-
-        .table-description {
-            background-color: #f8f9fa;
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #333;
-            line-height: 1.5;
-        }
-
-        .table-description p {
-            margin: 5px 0;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 15px;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            nav {
-                flex-direction: column;
-            }
-
-            .container {
-                margin: 10px;
-            }
-
-            table {
-                font-size: 0.8em;
-            }
-
-            th, td {
-                padding: 6px;
-                white-space: nowrap;
-            }
-
-            h1, h2 {
-                font-size: 1.2em;
-            }
-
-            button {
-                font-size: 0.9em;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .hamburger {
-                display: none;
-            }
-
-            nav {
-                display: flex !important;
-                max-height: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>LIGA DOMINO MX</h1>
+        <img src="logo.png" alt="Logo Liga Domino MX" class="logo">
         <div class="hamburger" onclick="toggleMenu()">
             <div></div>
             <div></div>
@@ -329,25 +134,31 @@
         }
 
         function renderTable(teams) {
-            const tbody = document.getElementById('teamTableBody');
-            tbody.innerHTML = '';
+    const tbody = document.getElementById('teamTableBody');
+    tbody.innerHTML = '';
 
-            teams.forEach((team, index) => {
-                const row = document.createElement('tr');
+    teams.forEach((team, index) => {
+        const row = document.createElement('tr');
+        const isTop8 = index < 8 ? 'highlight-top-8' : '';
 
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${team["Pareja"]}</td>
-                    <td>${team["JJ"]}</td>
-                    <td>${team["G"]}</td>
-                    <td>${team["P"]}</td>
-                    <td>${team["PTS(D)"]}</td>
-                    <td>${team["PTS"]}</td>
-                `;
-
-                tbody.appendChild(row);
-            });
+        if (isTop8) {
+            row.classList.add(isTop8);
         }
+
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${team["Pareja"]}</td>
+            <td>${team["JJ"]}</td>
+            <td>${team["G"]}</td>
+            <td>${team["P"]}</td>
+            <td>${team["PTS(D)"]}</td>
+            <td>${team["PTS"]}</td>
+        `;
+
+        tbody.appendChild(row);
+    });
+}
+
 
         function loadJornada(jornadaNumber) {
             const tbody = document.getElementById('jornadasTableBody');
