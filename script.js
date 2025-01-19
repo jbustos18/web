@@ -16,8 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const classificationSheet = workbook.Sheets[classificationSheetName];
             const classificationData = XLSX.utils.sheet_to_json(classificationSheet);
 
-            // Almacenar los datos de clasificación globalmente
-            window.clasificacion = classificationData;
+            // Ordenar los datos por PTS (Puntos de Victorias) en orden descendente
+            const sortedData = classificationData.sort((a, b) => (b.PTS || 0) - (a.PTS || 0));
+
+            // Almacenar los datos ordenados globalmente
+            window.clasificacion = sortedData;
 
             // Poblar la tabla de clasificación
             if (window.clasificacion.length > 0) {
@@ -43,7 +46,7 @@ function populateTable(data) {
         }
 
         tr.innerHTML = `
-            <td>${row['#'] || ''}</td>
+            <td>${index + 1}</td> <!-- Columna de lugar (posiciones actualizadas dinámicamente) -->
             <td>${row['Pareja'] || ''}</td>
             <td>${row['JJ'] || ''}</td>
             <td>${row['G'] || ''}</td>

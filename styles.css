@@ -223,6 +223,36 @@ nav {
 }
 
 
+/* Título de la sección */
+#liguilla .section-title {
+    font-size: 28px; /* Tamaño de fuente grande */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px; /* Espaciado inferior */
+    color: #343a40; /* Color gris oscuro */
+}
+
+/* Tabla de liguilla */
+#liguilla-table {
+    width: 100%;
+    border-collapse: collapse; /* Unir bordes */
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+
+#liguilla-table tbody td {
+    padding: 10px;
+    border: 1px solid #ccc; /* Bordes */
+}
+
+#liguilla-table tbody tr:nth-child(odd) {
+    background-color: #f8f9fa; /* Fondo alternado */
+}
+
+
+
 
 table {
     width: 100%;

@@ -24,9 +24,9 @@
                 <a href="index.html">Inicio</a>
                 <a href="clasif.html">Clasificación</a>
                 <a href="jornadas.html">Jornadas</a>
-                <a href="#" class="active">Resultados</a>
+                <a href="resultados.html">Resultados</a>
                 <a href="reglas.html">Reglas</a>
-                <a href="liguilla.html">Liguilla</a>
+                <a href="#" class="active">Liguilla</a>
             </div>
         </nav>
     </header>
@@ -37,45 +37,44 @@
     <!-- Sliding Menu -->
     <div id="mobile-menu">
         <ul>
-            <li><a href="index.html" >Inicio</a></li>
+            <li><a href="index.html">Inicio</a></li>
             <li><a href="clasif.html">Clasificación</a></li>
             <li><a href="jornadas.html">Jornadas</a></li>
-            <li><a href="#" class="active">Resultados</a></li>
+            <li><a href="resultados.html">Resultados</a></li>
             <li><a href="reglas.html">Reglas</a></li>
-            <li><a href="liguilla.html">Liguilla</a></li>
+            <li><a href="#" class="active">Liguilla</a></li>
         </ul>
     </div>
 
-
     <div class="table-container">
-        <h2>Resultados</h2>
+        <h2>Liguilla al Momento</h2>
         <div>
-            <table id="resultados-table">
-                <thead>
-                    <tr>
-                        <th>J</th>
-                        <th>Pareja</th>
-                        <th>PTS</th>
-                        <th>Pareja</th>
-                        <th>PTS</th>
-                        <th>R</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los resultados se agregarán dinámicamente aquí -->
-                </tbody>
-            </table>
+            <section id="liguilla">
+                <div class="container">
+                    <div class="liguilla-content">
+                        <table id="liguilla-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Pareja</th>
+                                    <th>VS</th>
+                                    <th>Pareja</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos de la liguilla se agregarán dinámicamente aquí -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
         </div>
         <div class="table-description">
-            <p><strong>J</strong>: Número de Jornada</p>
-            <p><strong>PTS</strong>: Puntos de Domino</p>
-            <p><strong>R</strong>: Resultado</p>
-            <p><strong>L</strong>: Pareja Local</p>
-            <p><strong>V</strong>: Pareja Visitante</p>
+            <p><strong>#</strong>: Posición en la Tabla</p>
+            <p><strong>VS</strong>: Versus</p>
         </div>
-        
     </div>
-    
     
     
 
@@ -98,7 +97,7 @@
             });
         });
     </script>
-    <script src="resultados.js"></script>
+    <script src="liguilla.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 </body>
