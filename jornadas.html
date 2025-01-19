@@ -20,9 +20,9 @@
         <div class="hamburger" id="menu-toggle">&#9776;</div>
         <nav>
             <div class="menu">
-                <a href="#" class="active">Inicio</a>
+                <a href="index.html">Inicio</a>
                 <a href="clasif.html">Clasificación</a>
-                <a href="jornadas.html">Jornadas</a>
+                <a href="#" class="active">Jornadas</a>
                 <a href="resultados.html">Resultados</a>
                 <a href="reglas.html">Reglas</a>
             </div>
@@ -35,39 +35,34 @@
     <!-- Sliding Menu -->
     <div id="mobile-menu">
         <ul>
-            <li><a href="#" class="active">Inicio</a></li>
+            <li><a href="index.html" >Inicio</a></li>
             <li><a href="clasif.html">Clasificación</a></li>
-            <li><a href="jornadas.html">Jornadas</a></li>
+            <li><a href="#" class="active">Jornadas</a></li>
             <li><a href="resultados.html">Resultados</a></li>
             <li><a href="reglas.html">Reglas</a></li>
         </ul>
     </div>
 
-    <div class="table-container">
-        <div>
-            <table id="classification-table">
+
+    <div class="container-hidden" id="jornadas-section">
+        <h2 id="jornada-title">Jornada 1</h2>
+        <div class="table-container">
+            <table>
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Pareja</th>
-                        <th>JJ</th>
-                        <th>G</th>
-                        <th>P</th>
-                        <th>PTS(D)</th>
-                        <th>PTS</th>
+                        <th>Pareja Local</th>
+                        <th>Pareja Visitante</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="jornadasTableBody">
+                    <!-- Los enfrentamientos se agregarán dinámicamente aquí -->
+                </tbody>
             </table>
         </div>
-        <div class="table-description">
-            <p><strong>JJ</strong>: Juegos Jugados</p>
-            <p><strong>G</strong>: Juegos Ganados</p>
-            <p><strong>P</strong>: Juegos Perdidos</p>
-            <p><strong>PTS(D)</strong>: Puntos de Domino</p>
-            <p><strong>PTS</strong>: Puntos de Victorias</p>
+        <div class="btn-container">
+            <button onclick="previousJornada()">Jornada Anterior</button>
+            <button onclick="nextJornada()">Siguiente Jornada</button>
         </div>
-        
     </div>
     
 
@@ -90,7 +85,7 @@
             });
         });
     </script>
-    <script src="script.js"></script>
+    <script src="jornadas.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 </body>
