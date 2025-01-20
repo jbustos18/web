@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liga Domino MTY</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="relampago.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
@@ -23,12 +24,12 @@
         <nav>
             <div class="menu">
                 <a href="index.html">Inicio</a>
-                <a href="#" class="active">Clasificación</a>
+                <a href="clasif.html">Clasificación</a>
                 <a href="jornadas.html">Jornadas</a>
                 <a href="resultados.html">Resultados</a>
                 <a href="reglas.html">Reglas</a>
                 <a href="liguilla.html">Liguilla</a>
-                <a href="relampago.html">Relámpago</a>
+                <a href="#" class="active">Relámpago</a>
             </div>
         </nav>
     </header>
@@ -39,40 +40,60 @@
     <!-- Sliding Menu -->
     <div id="mobile-menu">
         <ul>
-            <li><a href="index.html" >Inicio</a></li>
-            <li><a href="#" class="active">Clasificación</a></li>
-            <li><a href="jornadas.html" >Jornadas</a></li>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="clasif.html">Clasificación</a></li>
+            <li><a href="jornadas.html">Jornadas</a></li>
             <li><a href="resultados.html">Resultados</a></li>
             <li><a href="reglas.html">Reglas</a></li>
             <li><a href="liguilla.html">Liguilla</a></li>
-            <li><a href="relampago.html">Relámpago</a></li>
+            <li><a href="#" class="active">Relámpago</a></li>
         </ul>
     </div>
 
     <div class="table-container">
-        <h2>Tabla de Clasificación</h2>
-        <div>
-            <table id="classification-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Pareja</th>
-                        <th>JJ</th>
-                        <th>G</th>
-                        <th>P</th>
-                        <th>PTS(D)</th>
-                        <th>PTS</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-        <div class="table-description">
-            <p><strong>JJ</strong>: Juegos Jugados</p>
-            <p><strong>G</strong>: Juegos Ganados</p>
-            <p><strong>P</strong>: Juegos Perdidos</p>
-            <p><strong>PTS(D)</strong>: Puntos de Domino</p>
-            <p><strong>PTS</strong>: Puntos de Victorias</p>
+        <section id="torneo-relampago">
+            <div class="container">
+                <h2 class="section-title">Torneo Relámpago</h2>
+        
+                <!-- Formulario para ingresar parejas -->
+                <div id="torneo-setup">
+                    <h3>Configurar Torneo</h3>
+                    <label for="num-parejas">Número de Parejas:</label>
+                    <input type="number" id="num-parejas" min="3" max="10" placeholder="Ejemplo: 4">
+                    <button id="btn-agregar-parejas">Agregar Parejas</button>
+                </div>
+        
+                <!-- Lista para ingresar los nombres de las parejas -->
+                <div id="parejas-lista" class="hidden">
+                    <h3>Ingrese los nombres de las Parejas</h3>
+                    <form id="parejas-form"></form>
+                    <button id="btn-generar-encuentros">Generar Encuentros</button>
+                </div>
+        
+                <!-- Tabla para los encuentros -->
+                <div id="encuentros" class="hidden">
+                    <h3>Encuentros</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pareja</th>
+                                <th>Pareja</th>
+                                <th>PTS</th>
+                                <th>PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="encuentros-body"></tbody>
+                    </table>
+                    <button id="btn-generar-liguilla">Generar Liguilla</button>
+                </div>
+        
+                <!-- Liguilla rápida -->
+                <div id="liguilla-rapida" class="hidden">
+                    <h3>Liguilla Rápida</h3>
+                    <div id="liguilla-encuentros"></div>
+                </div>
+            </div>
+        </section>        
         </div>
         
     </div>
@@ -97,7 +118,7 @@
             });
         });
     </script>
-    <script src="script.js"></script>
+    <script src="relampago.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 </body>

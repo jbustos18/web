@@ -34,6 +34,7 @@ nav {
 .menu {
     display: flex;
     gap: 15px;
+    font-family: 'Poppins';
 }
 
 .menu a {
@@ -160,6 +161,7 @@ nav {
 
 /* Botones de navegación */
 .btn-container button {
+    font-family: 'Poppins';
     background-color: #343a40; /* Azul principal */
     color: white; /* Texto blanco */
     border: 2px solid #fff; /* Borde azul más oscuro */
@@ -240,8 +242,6 @@ nav {
     margin-top: 20px;
 }
 
-
-
 #liguilla-table tbody td {
     padding: 10px;
     border: 1px solid #ccc; /* Bordes */
@@ -251,13 +251,106 @@ nav {
     background-color: #f8f9fa; /* Fondo alternado */
 }
 
+.hidden {
+    display: none;
+}
 
+#torneo-relampago {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+table input[type="number"] {
+    width: 80px; /* Ancho fijo para los campos */
+    padding: 5px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center; /* Centrar el texto dentro del campo */
+}
+
+input[type="number"], input[type="text"] {
+    padding: 5px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    background-color: #343a40; /* Fondo gris oscuro */
+    border: 1px solid #aaa; /* Borde gris medio */
+    color: #fff; /* Texto blanco */
+    padding: 8px 16px; /* Espaciado interno */
+    font-size: 14px; /* Tamaño de fuente */
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+    text-align: center;
+    cursor: pointer; /* Icono de puntero */
+    transition: all 0.3s ease; /* Suavizar cambios */
+    display: inline-block;
+    text-decoration: none; /* Eliminar subrayado si es un enlace */
+    margin: 10px 5px; /* Espaciado externo (vertical y horizontal) */
+}
+
+button:hover {
+    background-color: #505050; /* Fondo gris más oscuro al pasar el ratón */
+    border-color: #707070; /* Borde más oscuro */
+    color: #fff; /* Texto permanece blanco */
+}
+
+button:active{
+    background-color: #222; /* Fondo casi negro */
+    border-color: #444; /* Borde oscuro */
+    color: #fff;
+}
+
+#liguilla-rapida {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#liguilla-encuentros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.semifinal, .finalista-directo {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.semifinal h4, .finalista-directo h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: center;
+    table-layout: auto; /* Permite que las celdas se ajusten al contenido */
+    width: 100%; /* Tabla ocupa todo el contenedor */
+    border-collapse: collapse; /* Elimina espacio entre bordes */
+    text-align: center; /* Centrar texto en celdas */
+}
+
+table th, table td {
+    text-align: center; /* Centrar texto */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ddd; /* Bordes */
+    white-space: nowrap; /* Evita que el contenido se quiebre en varias líneas */
+}
+
+table th {
+    background-color: #343a40; /* Fondo oscuro para el encabezado */
+    color: white; /* Texto blanco */
 }
 
 th, td {
