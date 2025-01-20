@@ -1,15 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const torneoSetup = document.getElementById('torneo-setup');
-    const parejasLista = document.getElementById('parejas-lista');
-    const encuentrosDiv = document.getElementById('encuentros');
-    const liguillaDiv = document.getElementById('liguilla-rapida');
     const parejasForm = document.getElementById('parejas-form');
     const encuentrosBody = document.getElementById('encuentros-body');
     const liguillaEncuentros = document.getElementById('liguilla-encuentros');
+    const liguillaDiv = document.getElementById('liguilla-rapida');
+    const parejasLista = document.getElementById('parejas-lista');
+    const encuentrosDiv = document.getElementById('encuentros');
     let parejas = [];
-    let encuentros = [];
+    let encuentrosPorJornada = [];
 
-    // Configurar número de parejas
+    // Configurar número de parejas y mostrar formulario para nombres
     document.getElementById('btn-agregar-parejas').addEventListener('click', () => {
         const numParejas = parseInt(document.getElementById('num-parejas').value);
         if (numParejas >= 3 && numParejas <= 10) {
@@ -28,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Generar encuentros
+    // Generar encuentros por jornada
     document.getElementById('btn-generar-encuentros').addEventListener('click', () => {
         parejas = [];
         const inputs = parejasForm.querySelectorAll('input');
@@ -41,92 +40,147 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Crear todos los encuentros posibles
-        encuentros = [];
-        for (let i = 0; i < parejas.length; i++) {
-            for (let j = i + 1; j < parejas.length; j++) {
-                encuentros.push({ local: parejas[i], visitante: parejas[j], ptsLocal: 0, ptsVisitante: 0 });
-            }
+        // Ajustar para número impar de parejas
+        if (parejas.length % 2 !== 0) {
+            parejas.push("Bye");
         }
 
-        // Mostrar los encuentros en la tabla
+        // Generar jornadas usando Round Robin
+        encuentrosPorJornada = [];
+        const totalJornadas = parejas.length - 1;
+        const totalParejas = parejas.length;
+
+        for (let jornada = 0; jornada < totalJornadas; jornada++) {
+            const encuentrosDeEstaJornada = [];
+
+            for (let i = 0; i < totalParejas / 2; i++) {
+                const local = parejas[i];
+                const visitante = parejas[totalParejas - 1 - i];
+
+                if (local !== "Bye" && visitante !== "Bye") {
+                    encuentrosDeEstaJornada.push({
+                        jornada: jornada + 1,
+                        local,
+                        visitante,
+                        ptsLocal: 0,
+                        ptsVisitante: 0,
+                        hecho: false,
+                    });
+                }
+            }
+
+            encuentrosPorJornada.push(encuentrosDeEstaJornada);
+
+            // Rotar parejas para la siguiente jornada
+            const fixed = parejas[0];
+            const rotables = parejas.slice(1);
+            const last = rotables.pop();
+            rotables.unshift(last);
+            parejas = [fixed, ...rotables];
+        }
+
+        // Mostrar jornadas
         encuentrosBody.innerHTML = '';
-        encuentros.forEach((encuentro, index) => {
+        encuentrosPorJornada.forEach((encuentrosDeJornada, jornadaIndex) => {
             encuentrosBody.innerHTML += `
-                <tr>
-                    <td>${encuentro.local}</td>
-                    <td>${encuentro.visitante}</td>
-                    <td><input type="number" id="pts-local-${index}" min="0" placeholder="PTS"></td>
-                    <td><input type="number" id="pts-visitante-${index}" min="0" placeholder="PTS"></td>
+                <tr class="jornada-header">
+                    <td colspan="5">Jornada ${jornadaIndex + 1}</td>
                 </tr>
             `;
+            encuentrosDeJornada.forEach((encuentro, index) => {
+                encuentrosBody.innerHTML += `
+                    <tr>
+                        <td>${encuentro.local}</td>
+                        <td>${encuentro.visitante}</td>
+                        <td><input type="number" id="pts-local-${jornadaIndex}-${index}" min="0" placeholder="PTS"></td>
+                        <td><input type="number" id="pts-visitante-${jornadaIndex}-${index}" min="0" placeholder="PTS"></td>
+                        <td><button id="hecho-${jornadaIndex}-${index}" class="btn-hecho">Hecho</button></td>
+                    </tr>
+                `;
+            });
         });
 
         encuentrosDiv.classList.remove('hidden');
+
+        // Agregar funcionalidad a los botones "Hecho"
+        document.querySelectorAll('.btn-hecho').forEach((button) => {
+            button.addEventListener('click', (event) => {
+                const [jornadaIndex, index] = event.target.id.split('-').slice(1).map(Number);
+                const encuentro = encuentrosPorJornada[jornadaIndex][index];
+
+                // Bloquear inputs
+                const ptsLocalInput = document.getElementById(`pts-local-${jornadaIndex}-${index}`);
+                const ptsVisitanteInput = document.getElementById(`pts-visitante-${jornadaIndex}-${index}`);
+
+                ptsLocalInput.setAttribute('readonly', true);
+                ptsVisitanteInput.setAttribute('readonly', true);
+
+                // Cambiar estilo del botón
+                event.target.textContent = 'Listo';
+                event.target.disabled = true;
+
+                // Actualizar estado
+                encuentro.ptsLocal = parseInt(ptsLocalInput.value) || 0;
+                encuentro.ptsVisitante = parseInt(ptsVisitanteInput.value) || 0;
+                encuentro.hecho = true;
+            });
+        });
     });
 
     // Generar liguilla
     document.getElementById('btn-generar-liguilla').addEventListener('click', () => {
-        // Leer resultados
-        encuentros.forEach((encuentro, index) => {
-            encuentro.ptsLocal = parseInt(document.getElementById(`pts-local-${index}`).value) || 0;
-            encuentro.ptsVisitante = parseInt(document.getElementById(`pts-visitante-${index}`).value) || 0;
-        });
-
-        // Calcular puntos totales por pareja
-        const puntosParejas = parejas.map((pareja) => ({
+        const puntosPorPareja = parejas.map((pareja) => ({
             nombre: pareja,
             puntos: 0,
             diferencia: 0,
-            ganados: 0, // Contar los juegos ganados
+            ganados: 0,
         }));
 
-        encuentros.forEach(({ local, visitante, ptsLocal, ptsVisitante }) => {
-            const parejaLocal = puntosParejas.find((p) => p.nombre === local);
-            const parejaVisitante = puntosParejas.find((p) => p.nombre === visitante);
+        encuentrosPorJornada.forEach((encuentrosDeJornada) => {
+            encuentrosDeJornada.forEach((encuentro) => {
+                const local = puntosPorPareja.find((p) => p.nombre === encuentro.local);
+                const visitante = puntosPorPareja.find((p) => p.nombre === encuentro.visitante);
 
-            if (ptsLocal > ptsVisitante) {
-                parejaLocal.puntos += 3;
-                parejaLocal.ganados += 1;
-            } else if (ptsVisitante > ptsLocal) {
-                parejaVisitante.puntos += 3;
-                parejaVisitante.ganados += 1;
-            } else {
-                parejaLocal.puntos += 1;
-                parejaVisitante.puntos += 1;
-            }
+                if (encuentro.ptsLocal > encuentro.ptsVisitante) {
+                    local.puntos += 3;
+                    local.ganados += 1;
+                } else if (encuentro.ptsVisitante > encuentro.ptsLocal) {
+                    visitante.puntos += 3;
+                    visitante.ganados += 1;
+                } else {
+                    local.puntos += 1;
+                    visitante.puntos += 1;
+                }
 
-            parejaLocal.diferencia += ptsLocal - ptsVisitante;
-            parejaVisitante.diferencia += ptsVisitante - ptsLocal;
+                local.diferencia += encuentro.ptsLocal - encuentro.ptsVisitante;
+                visitante.diferencia += encuentro.ptsVisitante - encuentro.ptsLocal;
+            });
         });
 
-        // Ordenar por puntos, luego por diferencia
-        puntosParejas.sort((a, b) => b.puntos - a.puntos || b.diferencia - a.diferencia);
+        puntosPorPareja.sort((a, b) => b.puntos - a.puntos || b.diferencia - a.diferencia);
 
-        // Verificar si alguna pareja ganó todos los encuentros
-        const totalPartidosPorPareja = parejas.length - 1;
-        const parejaInvicta = puntosParejas.find((p) => p.ganados === totalPartidosPorPareja);
+        // Verificar si hay una pareja invicta
+        const totalJornadas = parejas.length - 1;
+        const parejaInvicta = puntosPorPareja.find((p) => p.ganados === totalJornadas);
 
         liguillaEncuentros.innerHTML = '';
 
         if (parejaInvicta) {
-            // Caso especial: pareja invicta va directo a la final
             liguillaEncuentros.innerHTML += `
                 <div class="finalista-directo">
                     <h4>Finalista Directo: ${parejaInvicta.nombre}</h4>
                 </div>
                 <div class="semifinal">
                     <h4>Semifinal</h4>
-                    <p>${puntosParejas[1].nombre} vs ${puntosParejas[2].nombre}</p>
+                    <p>${puntosPorPareja[1].nombre} vs ${puntosPorPareja[2].nombre}</p>
                 </div>
             `;
         } else {
-            // Generar semifinales normales
             liguillaEncuentros.innerHTML += `
                 <div class="semifinal">
                     <h4>Semifinales</h4>
-                    <p>${puntosParejas[0].nombre} vs ${puntosParejas[3].nombre}</p>
-                    <p>${puntosParejas[1].nombre} vs ${puntosParejas[2].nombre}</p>
+                    <p>${puntosPorPareja[0].nombre} vs ${puntosPorPareja[3].nombre}</p>
+                    <p>${puntosPorPareja[1].nombre} vs ${puntosPorPareja[2].nombre}</p>
                 </div>
             `;
         }

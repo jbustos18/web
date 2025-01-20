@@ -1,17 +1,16 @@
 /* Contenedor responsivo */
 .table-container {
-    overflow-x: auto; /* Habilitar scroll horizontal si la tabla es demasiado ancha */
+    overflow-x: auto; /* Habilitar desplazamiento horizontal si es necesario */
     margin: 20px 0; /* Separación con otros elementos */
-    border: 1px solid #ddd; /* Borde para destacar la tabla */
+    border: 1px solid #ddd; /* Borde */
     border-radius: 8px; /* Bordes redondeados */
 }
 
-/* Estilo de la tabla */
+/* Tabla general */
 table {
     width: 100%; /* Asegurar que la tabla use todo el espacio disponible */
     border-collapse: collapse; /* Eliminar separación entre bordes */
-    text-align: center; /* Centrar contenido */
-    font-size: 14px; /* Tamaño de fuente más compacto */
+    font-size: 14px; /* Tamaño de fuente predeterminado */
 }
 
 /* Encabezados */
@@ -24,36 +23,39 @@ table th {
 }
 
 /* Celdas */
-/* Ajustar contenido de las celdas para romper líneas en "/" */
 table td {
     padding: 10px; /* Espaciado interno */
     border: 1px solid #ddd; /* Bordes de las celdas */
-    word-wrap: break-word; /* Permitir que las palabras largas se rompan */
-    white-space: pre-wrap; /* Permitir que los saltos de línea ocurran */
-    text-align: center; /* Centrar el texto */
+    text-align: center; /* Centrar texto */
 }
-
-/* Dividir contenido en "/" a una nueva línea */
-table td:before {
-    content: attr(data-content); /* Usar el contenido original de la celda */
-    white-space: pre-wrap; /* Permitir saltos de línea */
-    display: block; /* Convertir el texto en un bloque para ajustar la celda */
-}
-
-/* Modificar el estilo si hay "/" en el contenido */
-table td[data-content*="/"] {
-    word-break: keep-all; /* Evitar el corte de palabras */
-    white-space: normal; /* Ajustar automáticamente el texto */
-}
-
 
 /* Inputs dentro de las celdas */
 table input[type="number"] {
-    width: 60px; /* Ancho fijo para mantener proporciones */
+    width: 60px; /* Ancho fijo */
     padding: 5px; /* Espaciado interno */
     border: 1px solid #ccc; /* Borde gris */
     border-radius: 5px; /* Bordes redondeados */
-    text-align: center; /* Centrar el texto dentro del campo */
+    text-align: center; /* Centrar texto */
+}
+
+/* Botón "Hecho" */
+table .btn-hecho {
+    background-color: #343a40; /* Fondo oscuro */
+    color: white; /* Texto blanco */
+    border: none;
+    padding: 5px 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Puntero */
+    font-size: 12px; /* Tamaño de fuente reducido */
+    transition: background-color 0.3s ease;
+}
+
+table .btn-hecho:hover {
+    background-color: #505050; /* Fondo al pasar el cursor */
+}
+
+table .btn-hecho:active {
+    background-color: #222; /* Fondo al hacer clic */
 }
 
 /* Alternar color de filas */
@@ -61,14 +63,70 @@ table tr:nth-child(even) {
     background-color: #f8f9fa; /* Fondo gris claro */
 }
 
-/* Tabla en pantallas pequeñas */
+/* Estilo para pantallas pequeñas */
 @media screen and (max-width: 768px) {
-    table th, table td {
-        padding: 8px; /* Reducir espaciado interno */
-        font-size: 12px; /* Tamaño de fuente más pequeño */
+    /* Convertir filas en diseño de bloque */
+    table, table thead, table tbody, table th, table td, table tr {
+        display: block;
     }
 
+    /* Ajustar encabezados */
+    table thead tr {
+        display: none; /* Ocultar encabezados en pantallas pequeñas */
+    }
+
+    /* Estilo para filas */
+    table tr {
+        margin-bottom: 15px; /* Separación entre filas */
+        border-bottom: 1px solid #ddd; /* Borde debajo de cada fila */
+    }
+
+    /* Estilo para celdas */
+    table td {
+        text-align: left; /* Alinear texto a la izquierda */
+        padding: 10px;
+        position: relative;
+        font-size: 12px; /* Tamaño más pequeño */
+    }
+
+    /* Mostrar encabezado como etiqueta para cada celda */
+    table td:before {
+        content: attr(data-label); /* Usar atributo personalizado */
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #343a40;
+    }
+
+    /* Inputs más pequeños */
     table input[type="number"] {
-        width: 50px; /* Reducir ancho del input */
+        width: 100%; /* Ocupa todo el ancho disponible */
+        box-sizing: border-box;
+    }
+
+    /* Botón hecho más visible */
+    table .btn-hecho {
+        width: 100%; /* Botón ocupa todo el ancho */
+        text-align: center; /* Centrar texto */
+        font-size: 12px; /* Reducir texto */
+        padding: 8px; /* Espaciado interno */
+    }
+}
+
+/* Estilo para el encabezado de cada jornada */
+.jornada-header {
+    background-color: #f8f9fa; /* Fondo gris claro */
+    font-weight: bold; /* Texto en negrita */
+    text-align: center; /* Centrar el texto */
+    font-size: 16px; /* Tamaño del texto */
+    color: #343a40; /* Color del texto */
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .jornada-header {
+        font-size: 14px; /* Tamaño reducido en móviles */
+        padding: 10px; /* Espaciado interno */
     }
 }
