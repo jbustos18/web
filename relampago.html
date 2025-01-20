@@ -54,23 +54,22 @@
         <section id="torneo-relampago">
             <div class="container">
                 <h2 class="section-title">Torneo Relámpago</h2>
-        
-                <!-- Formulario para ingresar parejas -->
+
                 <div id="torneo-setup">
                     <h3>Configurar Torneo</h3>
                     <label for="num-parejas">Número de Parejas:</label>
                     <input type="number" id="num-parejas" min="3" max="10" placeholder="Ejemplo: 4">
+                    <label for="puntos-victoria">Puntuación Mínima para Victoria:</label>
+                    <input type="number" id="puntos-victoria" min="10" placeholder="Ejemplo: 50">
                     <button id="btn-agregar-parejas">Agregar Parejas</button>
                 </div>
-        
-                <!-- Lista para ingresar los nombres de las parejas -->
+
                 <div id="parejas-lista" class="hidden">
                     <h3>Ingrese los nombres de las Parejas</h3>
                     <form id="parejas-form"></form>
                     <button id="btn-generar-encuentros">Generar Encuentros</button>
                 </div>
-        
-                <!-- Tabla para los encuentros -->
+
                 <div id="encuentros" class="hidden">
                     <h3>Encuentros</h3>
                     <table>
@@ -86,15 +85,13 @@
                     </table>
                     <button id="btn-generar-liguilla">Generar Liguilla</button>
                 </div>
-        
-                <!-- Liguilla rápida -->
+
                 <div id="liguilla-rapida" class="hidden">
                     <div id="liguilla-encuentros"></div>
                 </div>
             </div>
         </section>        
         </div>
-        
     </div>
     
 
