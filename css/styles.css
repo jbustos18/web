@@ -1,0 +1,422 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins';
+    font-size: 14px
+}
+
+header {
+    background-color: #343a40;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: relative;
+    font-size: 22px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-domino {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+nav {
+    display: none;
+}
+
+.menu {
+    display: flex;
+    gap: 15px;
+    font-family: 'Poppins';
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
+.menu a.active {
+    color: #d3d3d3;
+    border: 1px solid rgba(211, 211, 211, 0.5);
+    border-radius: 5px;
+}
+
+.hamburger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.styled-menu-icon {
+    font-size: 36px; /* Tamaño del ícono */
+    transform: scaleY(1.2); /* Estira el ícono verticalmente */
+    line-height: 1; /* Ajusta el espaciado interno */
+}
+
+.hamburger:hover {
+    background-color: #21262b; /* Cambia el fondo al pasar el mouse */
+    color: white; /* Cambia el color del ícono */
+    transform: scale(1.1); /* Agranda el botón ligeramente */
+}
+
+.hamburger:active {
+    background-color: #21262b; /* Fondo más oscuro al hacer clic */
+    transform: scale(1); /* Restaura el tamaño */
+}
+/* Mobile Menu */
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #343a40;
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+#mobile-menu.open {
+    left: 0;
+}
+
+#mobile-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+#mobile-menu ul li {
+    border-bottom: 1px solid #484e53;
+    margin-bottom: 10px;
+}
+
+#mobile-menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 20px;
+    font-size: 18px;
+}
+
+#mobile-menu ul li a.active {
+    color: #d3d3d3;
+    border: 1px solid rgba(211, 211, 211, 0.5);
+    border-radius: 5px;
+}
+
+/* Overlay */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#overlay.active {
+    display: block;
+}
+
+.table-container {
+    padding: 20px;
+    overflow-x: auto; /* Para permitir desplazamiento horizontal en pantallas pequeñas */
+}
+
+
+.table-container h2{
+    text-align: center; /* Centra el texto */
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+    font-weight: bold; /* Hace que el texto sea más grueso */
+    margin-bottom: 20px; /* Espaciado debajo del título */
+    position: relative; /* Para poder posicionar la línea debajo */
+}
+
+.table-container h2::after {
+    content: ''; /* Línea decorativa debajo del texto */
+    display: block; /* Convierte el pseudo-elemento en un bloque */
+    width: 50%; /* Ancho de la línea (ajusta al tamaño deseado) */
+    height: 3px; /* Grosor de la línea */
+    background-color: #343a40; /* Color del menú */
+    margin: 10px auto 0; /* Centra la línea debajo del texto */
+}
+
+.container-hidden h2{
+    text-align: center; /* Centra el texto */
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+    font-weight: bold; /* Hace que el texto sea más grueso */
+    margin-bottom: 20px; /* Espaciado debajo del título */
+    position: relative; /* Para poder posicionar la línea debajo */
+}
+
+.container-hidden h2::after {
+    content: ''; /* Línea decorativa debajo del texto */
+    display: block; /* Convierte el pseudo-elemento en un bloque */
+    width: 50%; /* Ancho de la línea (ajusta al tamaño deseado) */
+    height: 3px; /* Grosor de la línea */
+    background-color: #343a40; /* Color del menú */
+    margin: 10px auto 0; /* Centra la línea debajo del texto */
+}
+
+/* Contenedor de botones */
+.btn-container {
+    display: flex; /* Permite alinear elementos dentro del contenedor */
+    justify-content: center; /* Centra los botones horizontalmente */
+    margin-top: 20px; /* Espaciado superior respecto a la tabla */
+}
+
+.btn-container button {
+    font-family: 'Poppins';
+    background-color: #343a40; /* Azul principal */
+    color: white; /* Texto blanco */
+    border: 2px solid #fff; /* Borde azul más oscuro */
+    padding: 10px 20px; /* Espaciado interno */
+    margin: 0 10px; /* Espaciado entre botones */
+    font-size: 16px; /* Tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; 
+}
+
+/* Hover (cuando el cursor pasa sobre el botón) */
+.btn-container button:hover {
+    background-color: #131517; /* Azul más oscuro */
+    border-color: #fff; /* Bordes más oscuros */
+    transform: scale(1.0); /* Aumenta ligeramente el tamaño */
+}
+
+/* Botones activos (cuando se presionan) */
+.btn-container button:active {
+    background-color: #000; /* Azul muy oscuro */
+    transform: scale(0.9); /* Reduce ligeramente el tamaño */
+}
+
+/* Estilo para resaltar al ganador */
+.winner {
+    background-color: #d4edda; /* Verde claro */
+    font-weight: bold;
+}
+
+/* Estilo para la sección de reglamento */
+#reglamento {
+    background-color: #f8f9fa; /* Fondo gris claro */
+    border: 1px solid #ccc; /* Borde gris */
+    padding: 20px; /* Espaciado interno */
+    margin: 20px auto; /* Espaciado externo superior e inferior */
+    font-size: 0.9em; /* Tamaño de fuente ligeramente reducido */
+    color: #333; /* Texto gris oscuro */
+    line-height: 1.6; /* Espaciado entre líneas */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Títulos dentro del reglamento */
+#reglamento h3 {
+    margin-top: 20px; /* Espaciado superior */
+    font-size: 1.2em; /* Tamaño ligeramente mayor */
+    color: #000; /* Azul principal */
+}
+
+/* Textos (p) alineados justificados */
+#reglamento p {
+    text-align: justify; /* Alineación justificada */
+    margin-bottom: 15px; /* Espaciado inferior */
+    font-size: 14px;
+}
+
+#reglamento li{
+    text-align: justify;
+    font-size: 14px;
+}
+
+
+/* Título de la sección */
+#liguilla .section-title {
+    font-size: 28px; /* Tamaño de fuente grande */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px; /* Espaciado inferior */
+    color: #343a40; /* Color gris oscuro */
+}
+
+/* Tabla de liguilla */
+#liguilla-table {
+    width: 100%;
+    border-collapse: collapse; /* Unir bordes */
+    text-align: center;
+    margin-top: 20px;
+}
+
+#liguilla-table tbody td {
+    padding: 10px;
+    border: 1px solid #ccc; /* Bordes */
+}
+
+#liguilla-table tbody tr:nth-child(odd) {
+    background-color: #f8f9fa; /* Fondo alternado */
+}
+
+.hidden {
+    display: none;
+}
+
+#torneo-relampago {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table input[type="number"] {
+    width: 80px; /* Ancho fijo para los campos */
+    padding: 5px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center; /* Centrar el texto dentro del campo */
+}
+
+input[type="number"], input[type="text"] {
+    padding: 5px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    background-color: #343a40; /* Fondo gris oscuro */
+    border: 1px solid #aaa; /* Borde gris medio */
+    color: #fff; /* Texto blanco */
+    padding: 8px 16px; /* Espaciado interno */
+    font-size: 14px; /* Tamaño de fuente */
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+    text-align: center;
+    cursor: pointer; /* Icono de puntero */
+    transition: all 0.3s ease; /* Suavizar cambios */
+    display: inline-block;
+    text-decoration: none; /* Eliminar subrayado si es un enlace */
+    margin: 10px 5px; /* Espaciado externo (vertical y horizontal) */
+}
+
+button:hover {
+    background-color: #505050; /* Fondo gris más oscuro al pasar el ratón */
+    border-color: #707070; /* Borde más oscuro */
+    color: #fff; /* Texto permanece blanco */
+}
+
+button:active{
+    background-color: #222; /* Fondo casi negro */
+    border-color: #444; /* Borde oscuro */
+    color: #fff;
+}
+
+#liguilla-rapida {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#liguilla-encuentros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.semifinal, .finalista-directo {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.semifinal h4, .finalista-directo h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+table {
+    table-layout: auto; /* Permite que las celdas se ajusten al contenido */
+    width: 100%; /* Tabla ocupa todo el contenedor */
+    border-collapse: collapse; /* Elimina espacio entre bordes */
+    text-align: center; /* Centrar texto en celdas */
+}
+
+table th, table td {
+    text-align: center; /* Centrar texto */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ddd; /* Bordes */
+    white-space: nowrap; /* Evita que el contenido se quiebre en varias líneas */
+}
+
+table th {
+    background-color: #343a40; /* Fondo oscuro para el encabezado */
+    color: white; /* Texto blanco */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    white-space: nowrap; /* Evita que el contenido se quiebre en varias líneas */
+}
+
+th {
+    background-color: #343a40;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+.highlight {
+    background-color: #d3d3d3;
+}
+
+.table-description {
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #333;
+    line-height: 1.5;
+}
+
+.table-description p {
+    margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .hamburger {
+        display: none;
+    }
+
+    nav {
+        display: flex;
+    }
+}

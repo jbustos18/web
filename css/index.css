@@ -1,0 +1,55 @@
+/* Main Navigation */
+#main-navigation {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    font-family: 'Poppins';
+}
+
+.section {
+    text-align: center;
+    flex: 1 1 calc(25% - 20px);
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.section h3 {
+    text-align: center; /* Centra el texto */
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+    font-weight: bold; /* Hace que el texto sea más grueso */
+    margin-bottom: 20px; /* Espaciado debajo del título */
+    position: relative; /* Para poder posicionar la línea debajo */
+}
+
+.section h3::after{
+    content: ''; /* Línea decorativa debajo del texto */
+    display: block; /* Convierte el pseudo-elemento en un bloque */
+    width: 50%; /* Ancho de la línea (ajusta al tamaño deseado) */
+    height: 3px; /* Grosor de la línea */
+    background-color: #343a40; /* Color del menú */
+    margin: 10px auto 0; /* Centra la línea debajo del texto */
+}
+
+.section .btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #343a40;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    color: #ffffff;
+    border: 2px solid #fff;
+    border-radius: 5px;
+}
+
+.section .btn:hover {
+    background-color: #0a0c0d;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 5px;
+}
