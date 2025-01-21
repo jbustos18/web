@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga Domino MTY</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="css/styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <!-- SVG Icon of a Domino Tile -->
+            <svg class="logo-domino" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="black">
+                <rect x="10" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="5"/>
+                <circle cx="30" cy="30" r="8" fill="black" />
+                <circle cx="70" cy="70" r="8" fill="black" />
+            </svg>
+            Liga Domino MTY
+        </div>
+        <div class="hamburger" id="menu-toggle">
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+        </div>
+        <nav>
+            <div class="menu">
+                <a href="index.html">Inicio</a>
+                <a href="clasif.html">Clasificación</a>
+                <a href="#" class="active">Jornadas</a>
+                <a href="resultados.html">Resultados</a>
+                <a href="reglas.html">Reglas</a>
+                <a href="liguilla.html">Liguilla</a>
+                <a href="relampago.html">Relámpago</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Sliding Menu -->
+    <div id="mobile-menu">
+        <ul>
+            <li><a href="index.html" >Inicio</a></li>
+            <li><a href="clasif.html">Clasificación</a></li>
+            <li><a href="#" class="active">Jornadas</a></li>
+            <li><a href="resultados.html">Resultados</a></li>
+            <li><a href="reglas.html">Reglas</a></li>
+            <li><a href="liguilla.html">Liguilla</a></li>
+            <li><a href="relampago.html">Relámpago</a></li>
+        </ul>
+    </div>
+
+
+    <div class="container-hidden" id="jornadas-section">
+        <h2 id="jornada-title">Jornada 1</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pareja Local</th>
+                        <th>Pareja Visitante</th>
+                    </tr>
+                </thead>
+                <tbody id="jornadasTableBody">
+                    <!-- Los enfrentamientos se agregarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-container">
+            <button onclick="previousJornada()">Jornada Anterior</button>
+            <button onclick="nextJornada()">Siguiente Jornada</button>
+        </div>
+    </div>    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('overlay');
+
+            // Open menu and show overlay
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                overlay.classList.add('active');
+            });
+
+            // Close menu and hide overlay
+            overlay.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        });
+    </script>
+    <script src="js/jornadas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+</body>
+</html>
