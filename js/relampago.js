@@ -1,204 +1,166 @@
-let torneoIdCounter = 1;
-let parejasPorTorneo = {};
-let resultadosPorTorneo = {};
+document.getElementById("crearTorneo").addEventListener("click", () => {
+    const torneoTemplate = document.getElementById("torneoTemplate").content.cloneNode(true);
+    const torneoDiv = torneoTemplate.querySelector(".torneo");
 
-function crearTorneo() {
-    const torneosContainer = document.getElementById('torneos');
-    const torneoId = `torneo${torneoIdCounter++}`;
-
-    const torneoDiv = document.createElement('div');
-    torneoDiv.className = 'torneo';
-    torneoDiv.id = `container-${torneoId}`;
-
-    torneoDiv.innerHTML = `
-        <h3>Torneo ${torneoIdCounter - 1}</h3>
-        <div class="button-group">
-            <div class="plus-button" onclick="expandirTorneo('${torneoId}')">
-                <span class="material-symbols-outlined">add</span>
-            </div>
-        </div>
-    `;
-
-    const configuracionDiv = document.createElement('div');
-    configuracionDiv.id = torneoId;
-    configuracionDiv.className = 'configuracion';
-    configuracionDiv.innerHTML = `
-        <h3>Configuración del Torneo</h3>
-        <label for="${torneoId}-equipos">Número de equipos:</label>
-        <input type="number" id="${torneoId}-equipos" min="2" max="20" value="4"><br><br>
-        <label for="${torneoId}-puntos">Puntos para ganar:</label>
-        <input type="number" id="${torneoId}-puntos" min="50" max="500" value="100"><br><br>
-        <div class="boton-container">
-            <button class="boton" onclick="crearParejas('${torneoId}-equipos', '${torneoId}-lista-parejas')">Agregar Parejas</button>
-        </div>
-        <div id="${torneoId}-lista-parejas"></div>
-        <div class="boton-container" style="display: none;">
-            <button class="boton" onclick="generarEncuentros('${torneoId}-lista-parejas', '${torneoId}-tabla-encuentros', '${torneoId}-puntos')">Generar Encuentros</button>
-        </div>
-        <div id="${torneoId}-tabla-encuentros"></div>
-        <div class="boton-container" style="display: none;">
-            <button class="boton" onclick="generarLiguilla('${torneoId}-lista-parejas', '${torneoId}-tabla-liguilla', '${torneoId}-puntos')">Generar Liguilla</button>
-        </div>
-        <div id="${torneoId}-tabla-liguilla"></div>
-    `;
-
-    torneosContainer.appendChild(torneoDiv);
-    torneosContainer.appendChild(configuracionDiv);
-}
-
-function expandirTorneo(id) {
-    const config = document.getElementById(id);
-    const buttonGroup = document.querySelector(`#container-${id} .button-group`);
-
-    config.style.display = 'block';
-
-    buttonGroup.innerHTML = `
-        <div class="delete-button" onclick="eliminarTorneo('${id}')">
-            <span class="material-symbols-outlined">close</span>
-        </div>
-        <div class="minimize-button" onclick="minimizarTorneo('${id}')">
-            <span class="material-symbols-outlined">remove</span>
-        </div>
-    `;
-}
-
-function minimizarTorneo(id) {
-    const config = document.getElementById(id);
-    const buttonGroup = document.querySelector(`#container-${id} .button-group`);
-
-    config.style.display = 'none';
-
-    buttonGroup.innerHTML = `
-        <div class="plus-button" onclick="expandirTorneo('${id}')">+</div>
-    `;
-}
-
-function eliminarTorneo(id) {
-    const torneoContainer = document.getElementById(`container-${id}`);
-    const configuracionDiv = document.getElementById(id);
-
-    torneoContainer.remove();
-    configuracionDiv.remove();
-
-    delete parejasPorTorneo[id];
-    delete resultadosPorTorneo[id];
-}
-
-function crearParejas(equiposId, listaId) {
-    const numEquipos = document.getElementById(equiposId).value;
-    const lista = document.getElementById(listaId);
-    lista.innerHTML = '';
-    parejasPorTorneo[listaId] = [];
-    resultadosPorTorneo[listaId] = {};
-
-    for (let i = 1; i <= numEquipos; i++) {
-        const parejaDiv = document.createElement('div');
-        parejaDiv.className = 'pareja-item';
-        parejaDiv.innerHTML = `
-            <label for="${listaId}-pareja${i}">Pareja ${i}:</label>
-            <input type="text" id="${listaId}-pareja${i}" placeholder="Nombre de la pareja">
-        `;
-        lista.appendChild(parejaDiv);
-        const parejaNombre = `Pareja ${i}`;
-        parejasPorTorneo[listaId].push(parejaNombre);
-        resultadosPorTorneo[listaId][parejaNombre] = 0;
-    }
-
-    // Mostrar el botón "Generar Encuentros"
-    const botonGenerarEncuentros = lista.nextElementSibling;
-    if (botonGenerarEncuentros) {
-        botonGenerarEncuentros.style.display = 'block';
-    }
-}
-
-function generarEncuentros(listaId, tablaId, puntosId) {
-    const tabla = document.getElementById(tablaId);
-    tabla.innerHTML = '';
-
-    const parejas = parejasPorTorneo[listaId];
-    if (!parejas || parejas.length < 2) {
-        alert('Debe agregar al menos 2 parejas para generar encuentros.');
-        return;
-    }
-
-    const jornadas = [];
-    const numEquipos = parejas.length;
-
-    for (let jornada = 0; jornada < numEquipos - 1; jornada++) {
-        const juegos = [];
-        for (let i = 0; i < numEquipos / 2; i++) {
-            const local = parejas[(jornada + i) % numEquipos];
-            const visitante = parejas[(numEquipos - 1 - i + jornada) % numEquipos];
-            juegos.push({ local, visitante });
-        }
-        jornadas.push(juegos);
-    }
-
-    jornadas.forEach((juegos, index) => {
-        const jornadaDiv = document.createElement('div');
-        jornadaDiv.innerHTML = `<h4>Jornada ${index + 1}</h4>`;
-        const table = document.createElement('table');
-        table.innerHTML = `
-            <tr>
-                <th>Pareja</th>
-                <th>Pareja</th>
-                <th>PTS</th>
-                <th>PTS</th>
-            </tr>
-        `;
-        juegos.forEach(juego => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${juego.local}</td>
-                <td>${juego.visitante}</td>
-                <td><input type="number" class="puntos-input" data-pareja="${juego.local}" min="0"></td>
-                <td><input type="number" class="puntos-input" data-pareja="${juego.visitante}" min="0"></td>
-            `;
-            table.appendChild(row);
-        });
-        jornadaDiv.appendChild(table);
-        tabla.appendChild(jornadaDiv);
+    // Botón de configuración
+    const configurarButton = torneoDiv.querySelector(".btn-configurar");
+    const configDiv = torneoDiv.querySelector(".config");
+    configurarButton.addEventListener("click", () => {
+        configDiv.style.display = configDiv.style.display === "none" ? "block" : "none";
     });
 
-    // Mostrar el botón "Generar Liguilla"
-    const botonGenerarLiguilla = tabla.nextElementSibling;
-    if (botonGenerarLiguilla) {
-        botonGenerarLiguilla.style.display = 'block';
-    }
-}
+    // Botón de minimizar y expandir
+    const minimizarButton = torneoDiv.querySelector(".btn-minimizar");
+    const icon = document.createElement("span");
+    icon.classList.add("material-symbols-outlined");
+    icon.innerText = "arrow_drop_down";
+    minimizarButton.appendChild(icon);
 
-function generarLiguilla(listaId, tablaId, puntosId) {
-    const tabla = document.getElementById(tablaId);
-    tabla.innerHTML = '';
+    minimizarButton.addEventListener("click", () => {
+        if (configDiv.style.display !== "none") {
+            configDiv.style.display = "none";
+            icon.classList.add("rotate");
+        } else {
+            configDiv.style.display = "block";
+            icon.classList.remove("rotate");
+        }
+    });
 
-    const parejas = parejasPorTorneo[listaId];
-    if (!parejas || parejas.length < 4) {
-        alert('Debe haber al menos 4 parejas para generar la liguilla.');
-        return;
-    }
+    // Botón de eliminar
+    const eliminarButton = torneoDiv.querySelector(".btn-eliminar");
+    eliminarButton.addEventListener("click", () => {
+        torneoDiv.remove();
+    });
 
-    const equiposConResultados = Object.entries(resultadosPorTorneo[listaId])
-        .map(([pareja, puntos]) => ({ pareja, puntos }))
-        .sort((a, b) => b.puntos - a.puntos);
+    // Botón de agregar parejas
+    const agregarParejasButton = torneoDiv.querySelector(".btn-agregar-parejas");
+    const parejasDiv = torneoDiv.querySelector(".parejas");
+    agregarParejasButton.addEventListener("click", () => {
+        parejasDiv.innerHTML = "";
+        const numEquipos = parseInt(torneoDiv.querySelector(".num-equipos").value);
+        for (let i = 1; i <= numEquipos; i++) {
+            const parejaInput = document.createElement("input");
+            parejaInput.type = "text";
+            parejaInput.placeholder = `Nombre de Pareja ${i}`;
+            parejaInput.dataset.parejaId = i;
+            parejasDiv.appendChild(parejaInput);
+        }
+    });
 
-    const semifinalistas = equiposConResultados.slice(0, 4);
-    const table = document.createElement('table');
-    table.innerHTML = `
-        <tr>
-            <th>Semifinal</th>
-            <th>Pareja</th>
-            <th>Pareja</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>${semifinalistas[0].pareja}</td>
-            <td>${semifinalistas[3].pareja}</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>${semifinalistas[1].pareja}</td>
-            <td>${semifinalistas[2].pareja}</td>
-        </tr>
-    `;
-    tabla.appendChild(table);
-}
+    // Botón de generar encuentros
+    const generarEncuentrosButton = torneoDiv.querySelector(".btn-generar-encuentros");
+    const jornadasDiv = torneoDiv.querySelector(".jornadas");
+    generarEncuentrosButton.addEventListener("click", () => {
+        jornadasDiv.innerHTML = "";
+        const equipos = Array.from(parejasDiv.querySelectorAll("input")).map(input => input.value);
+
+        if (equipos.length % 2 !== 0) equipos.push("Descanso");
+
+        const totalJornadas = equipos.length - 1;
+        const mitad = equipos.length / 2;
+
+        for (let i = 0; i < totalJornadas; i++) {
+            const jornadaTemplate = document.getElementById("jornadaTemplate").content.cloneNode(true);
+            const jornadaDiv = jornadaTemplate.querySelector(".jornada");
+            jornadaDiv.querySelector("h3").textContent = `Jornada ${i + 1}`;
+            const tbody = jornadaDiv.querySelector("tbody");
+
+            for (let j = 0; j < mitad; j++) {
+                const local = equipos[j];
+                const visitante = equipos[equipos.length - 1 - j];
+                if (local !== "Descanso" && visitante !== "Descanso") {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${local}</td>
+                        <td>${visitante}</td>
+                        <td><input type="number" class="puntosLocal" placeholder="PTS"></td>
+                        <td><input type="number" class="puntosVisitante" placeholder="PTS"></td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            }
+
+            jornadasDiv.appendChild(jornadaDiv);
+
+            const ultimo = equipos.pop();
+            equipos.splice(1, 0, ultimo);
+        }
+    });
+
+    // Botón de generar liguilla
+    const generarLiguillaButton = torneoDiv.querySelector(".btn-generar-liguilla");
+    const liguillaDiv = torneoDiv.querySelector(".liguilla");
+    generarLiguillaButton.addEventListener("click", () => {
+        liguillaDiv.innerHTML = "";
+        const puntosPorEquipo = {};
+
+        jornadasDiv.querySelectorAll(".jornada").forEach(jornada => {
+            jornada.querySelectorAll("tbody tr").forEach(row => {
+                const local = row.cells[0].textContent;
+                const visitante = row.cells[1].textContent;
+                const puntosLocal = parseInt(row.querySelector(".puntosLocal").value) || 0;
+                const puntosVisitante = parseInt(row.querySelector(".puntosVisitante").value) || 0;
+
+                if (!puntosPorEquipo[local]) puntosPorEquipo[local] = 0;
+                if (!puntosPorEquipo[visitante]) puntosPorEquipo[visitante] = 0;
+
+                if (puntosLocal > puntosVisitante) puntosPorEquipo[local]++;
+                else if (puntosVisitante > puntosLocal) puntosPorEquipo[visitante]++;
+            });
+        });
+
+        const equiposOrdenados = Object.keys(puntosPorEquipo).sort((a, b) => puntosPorEquipo[b] - puntosPorEquipo[a]);
+
+        if (equiposOrdenados.length > 0 && puntosPorEquipo[equiposOrdenados[0]] === jornadasDiv.querySelectorAll(".jornada").length) {
+            // Crear tabla para el finalista directo
+            const tablaFinalista = document.createElement("table");
+            const encabezadoFinalista = tablaFinalista.insertRow();
+            encabezadoFinalista.insertCell().textContent = "Ronda";
+            encabezadoFinalista.insertCell().textContent = "Equipo";
+            encabezadoFinalista.style.backgroundColor = "#343a40";
+            encabezadoFinalista.style.color = "white";
+        
+            const filaFinalista = tablaFinalista.insertRow();
+            filaFinalista.insertCell().textContent = "Finalista";
+            filaFinalista.insertCell().textContent = equiposOrdenados[0];
+        
+            liguillaDiv.innerHTML = ""; // Limpiar contenido previo
+            liguillaDiv.appendChild(tablaFinalista);
+        
+            // Crear tabla para la semifinal
+            const tablaSemifinal = document.createElement("table");
+            const encabezadoSemifinal = tablaSemifinal.insertRow();
+            encabezadoSemifinal.insertCell().textContent = "Ronda";
+            encabezadoSemifinal.insertCell().textContent = "Partido";
+            encabezadoSemifinal.style.backgroundColor = "#343a40";
+            encabezadoSemifinal.style.color = "white";
+        
+            const filaSemifinal = tablaSemifinal.insertRow();
+            filaSemifinal.insertCell().textContent = "Semifinal";
+            filaSemifinal.insertCell().textContent = `${equiposOrdenados[1]} vs ${equiposOrdenados[2]}`;
+        
+            liguillaDiv.appendChild(tablaSemifinal);
+        } else {
+            // Crear tabla para las semifinales
+            const tablaSemifinales = document.createElement("table");
+            const encabezadoSemifinales = tablaSemifinales.insertRow();
+            encabezadoSemifinales.insertCell().textContent = "Ronda";
+            encabezadoSemifinales.insertCell().textContent = "Partido";
+            encabezadoSemifinales.style.backgroundColor = "#343a40";
+            encabezadoSemifinales.style.color = "white";
+        
+            let filaSemifinal1 = tablaSemifinales.insertRow();
+            filaSemifinal1.insertCell().textContent = "Semifinal";
+            filaSemifinal1.insertCell().textContent = `${equiposOrdenados[0]} vs ${equiposOrdenados[3]}`;
+        
+            let filaSemifinal2 = tablaSemifinales.insertRow();
+            filaSemifinal2.insertCell().textContent = "Semifinal";
+            filaSemifinal2.insertCell().textContent = `${equiposOrdenados[1]} vs ${equiposOrdenados[2]}`;
+        
+            liguillaDiv.innerHTML = ""; // Limpiar contenido previo
+            liguillaDiv.appendChild(tablaSemifinales);
+        }
+    });
+
+    document.getElementById("torneosContainer").appendChild(torneoDiv);
+});
