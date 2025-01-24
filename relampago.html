@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneo Relámpago de Dominó</title>
+    <title>Liga Domino MTY</title>
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -57,11 +57,64 @@
 
     <div class="table-container">
         <h2>Torneo Relámpago</h2>
+        <button id="crearTorneo">Crear Torneo</button>
 
-        <div class="boton-container">
-        <button class="boton" onclick="crearTorneo()">Crear Nuevo Torneo</button>
+    <div id="torneosContainer">
+        <!-- Contenedor para torneos creados dinámicamente -->
+    </div>
+
+    <!-- Plantilla HTML para un torneo -->
+    <template id="torneoTemplate">
+        <div class="torneo">
+            <div class="torneo-header">
+                <input type="text" class="nombre-torneo" value="Torneo">
+                <button class="btn-minimizar"></button>
+                <button class="btn-eliminar"><span class="material-symbols-outlined">close</span></button>
+                <button class="btn-configurar">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+            </div>
+            
+            <div class="config" style="display: none;">
+                <h3>Numero de Equipos</h3>
+                <input type="number" class="num-equipos" min="2" placeholder="Número de Equipos/Parejas">
+                <h3>Puntos para Victoria</h3>
+                <input type="number" class="puntos-necesarios" min="1" placeholder="Puntos necesarios para ganar">
+                <button class="btn-agregar-parejas">Agregar Parejas</button>
+                <div class="parejas">
+                    <!-- Campos para las parejas -->
+                </div>
+                <button class="btn-generar-encuentros">Generar Encuentros</button>
+                <div class="jornadas">
+                    <!-- Tablas de jornadas -->
+                </div>
+                <button class="btn-generar-liguilla">Generar Liguilla</button>
+                <div class="liguilla">
+                    <!-- Resultados de la liguilla -->
+                </div>
+            </div>
         </div>
-        <div id="torneos"></div>
+    </template>
+
+    <!-- Plantilla HTML para una jornada (tabla) -->
+    <template id="jornadaTemplate">
+        <div class="jornada">
+            <h3></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pareja</th>
+                        <th>Pareja</th>
+                        <th>PTS</th>
+                        <th>PTS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas de encuentros -->
+                </tbody>
+            </table>
+        </div>
+    </template>
     </div>
 
 
