@@ -2,7 +2,9 @@
 body {
     margin: 0;
     font-family: 'Poppins';
-    font-size: 14px
+    font-size: 14px;
+    height: 100%;
+    overflow: auto;
 }
 
 header {
@@ -187,7 +189,7 @@ nav {
     color: white; /* Texto blanco */
     border: 2px solid #fff; /* Borde azul más oscuro */
     padding: 10px 20px; /* Espaciado interno */
-    margin: 0 10px; /* Espaciado entre botones */
+    margin: 0 auto;
     font-size: 16px; /* Tamaño del texto */
     font-weight: bold; /* Texto en negrita */
     border-radius: 5px; /* Bordes redondeados */
@@ -314,13 +316,13 @@ button {
 }
 
 button:hover {
-    background-color: #505050; /* Fondo gris más oscuro al pasar el ratón */
+    background-color: #21262b; /* Fondo gris más oscuro al pasar el ratón */
     border-color: #707070; /* Borde más oscuro */
     color: #fff; /* Texto permanece blanco */
 }
 
 button:active{
-    background-color: #222; /* Fondo casi negro */
+    background-color: #000; /* Fondo casi negro */
     border-color: #444; /* Borde oscuro */
     color: #fff;
 }

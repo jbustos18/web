@@ -1,215 +1,249 @@
-.torneo {
-    border: 1px solid #778c99;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    font-size: 14px;
+}
+
+#crearTorneo{
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+}
+
+button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    margin: 10px;
     align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.torneo {
+    margin-top: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 15px;
     margin-bottom: 20px;
     background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.table-container h2{
-    text-align: center; /* Centra el texto */
-    text-transform: uppercase; /* Convierte el texto a mayúsculas */
-    font-weight: bold; /* Hace que el texto sea más grueso */
-    margin-bottom: 20px; /* Espaciado debajo del título */
-    position: relative; /* Para poder posicionar la línea debajo */
-}
-
-.table-container h2::after {
-    content: ''; /* Línea decorativa debajo del texto */
-    display: block; /* Convierte el pseudo-elemento en un bloque */
-    width: 50%; /* Ancho de la línea (ajusta al tamaño deseado) */
-    height: 3px; /* Grosor de la línea */
-    background-color: #343a40; /* Color del menú */
-    margin: 10px auto 0; /* Centra la línea debajo del texto */
-}
-
-.configuracion {
-    display: none;
-    margin-top: 20px;
-    border: 1px dashed #778c99;
-    padding: 15px;
-    background-color: #ffffff;
-    color: #343a40;
-}
-
-.plus-button, .delete-button, .minimize-button {
-    width: 30px; /* Aumenta el tamaño del botón */
-    height: 30px; /* Aumenta el tamaño del botón */
-    font-size: 18px; /* Tamaño del símbolo */
-    font-weight: bold; /* Hace el símbolo más grueso */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #778c99; /* Aumenta el grosor del borde */
+.material-symbols-outlined {
+    font-size: 24px;
     cursor: pointer;
-    background-color: #343a40; /* Fondo oscuro */
-    color: white; /* Color del ícono */
+    transition: transform 0.3s ease;
 }
 
-.plus-button:hover, .delete-button:hover, .minimize-button:hover {
-    background-color: #778c99; /* Fondo más claro al pasar el mouse */
-    color: #21262b; /* Color más oscuro */
-    border-color: #343a40; /* Borde más oscuro */
+.material-symbols-outlined.rotate {
+    transform: rotate(180deg);
 }
 
-/* Aumenta el espacio entre botones si están en un grupo */
-.button-group {
-    display: flex;
-    gap: 15px; /* Espaciado entre botones */
-}
-
-.boton {
-    padding: 10px 15px;
-    margin-top: 20px;
-    background-color: #343a40;
-    color: white;
-    border: 1px solid rgba(211, 211, 211, 0.5);
-    cursor: pointer;
-    border-radius: 5px;
-    text-align: center;
-    display: inline-block;
-    width: auto;
-}
-
-.boton:hover {
-    background-color: #21262b;
-    color: #fff;
-}
-
-.boton-container {
-    text-align: center;
-    margin-top: 20px;
-    margin: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #ffffff;
-    color: #343a40;
-}
-
-table, th, td {
-    border: 1px solid #778c99;
-    text-align: center;
-}
-
-th, td {
-    padding: 10px;
-}
-
-th {
-    background-color: #343a40;
-    color: white;
-}
-
-td {
-    background-color: #f8f9fa;
-}
-
-input[type="text"], input[type="number"] {
-    background-color: #ffffff;
-    color: #343a40;
-    border: 1px solid #778c99;
-    padding: 5px;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-input[type="text"]:focus, input[type="number"]:focus {
-    outline: none;
-    border-color: #343a40;
-}
-
-.pareja-item {
-    margin-bottom: 20px; /* Espaciado entre cada pareja */
+.torneo-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px; /* Espaciado entre etiqueta e input */
-    width: 100%; /* Ocupa todo el ancho del contenedor */
+    margin-bottom: 10px;
 }
 
-.pareja-item label {
+.nombre-torneo {
+    flex: 1;
+    margin-right: 10px;
+    padding: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.num-equipos .puntos-necesarios{
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.torneo-header .btn-minimizar,
+.torneo-header .btn-eliminar,
+.torneo-header .btn-configurar {
+    width: 50px;
+    height: 50px;
+    margin-left: 5px;
+    font-size: 24px;
+}
+
+.torneo-header .btn-eliminar:hover {
+    color: #dc3545;
+}
+
+.torneo-header .btn-configurar:hover {
+    color: #6c757d;
+}
+
+.config {
+    margin-top: 20px;
+}
+
+.config input {
+    display: block;
+    width: 95%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.config button {
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.config h3{
+    font-size: 18px;
+    text-align: center;
+}
+
+.parejas {
+    margin: 20px 0;
+}
+
+.jornadas {
+    margin: 20px 0;
+}
+
+.liguilla {
+    margin: 20px 0;
+}
+
+/* Estilos para la tabla de jornadas */
+.jornada h3 {
+    text-align: center;
+    margin: 10px 0;
+    position: relative;
+    font-size: 18px;
+}
+
+.jornada h3::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: #31343a;
+    margin: 8px auto 0;
+}
+
+.jornada table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.jornada th,
+.jornada td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+
+.jornada th {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Ajuste para que la tabla sea completamente visible en pantallas grandes */
+.jornada table {
+    display: table;
+    overflow-x: visible;
+}
+
+/* Ajuste para los inputs de puntos */
+.puntosLocal,
+.puntosVisitante {
+    width: 90%; /* Ocupa casi todo el espacio de la columna */
+    box-sizing: border-box; /* Incluye padding y border dentro del width */
+    padding: 8px; /* Espaciado interno */
+    font-size: 14px; /* Tamaño de texto adecuado */
+    border: 1px solid #ced4da; /* Borde del input */
+    border-radius: 5px; /* Esquinas redondeadas */
+    text-align: center; /* Centra el texto dentro del input */
+    margin: 0 auto; /* Centra el input horizontalmente */
+    display: block; /* Asegura que el input se comporte como un bloque */
+}
+
+/* Ajuste para centrar los inputs dentro de la celda */
+.jornada td {
+    text-align: center; /* Centra el contenido horizontalmente */
+    vertical-align: middle; /* Centra el contenido verticalmente */
+    padding: 10px; /* Espaciado interno */
+}
+
+/* Ajuste específico para inputs y labels */
+.jornada td input,
+.jornada td label {
+    margin: 0 auto; /* Centra el contenido horizontalmente */
+    display: block; /* Asegura que ocupe su propio espacio */
+    width: 100%; /* Ocupa todo el espacio disponible */
+    max-width: 120px; /* Restringe el ancho máximo para inputs y labels */
+}
+
+/* Estilo de las tablas en liguilla */
+.liguilla table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.liguilla table td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+
+.liguilla .semifinal-container,
+.liguilla .final-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.liguilla .table {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 15px;
+    width: 45%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.liguilla .vs {
+    font-size: 24px;
     font-weight: bold;
     color: #343a40;
-    text-align: right; /* Alinea la etiqueta a la derecha */
+    margin: 0 10px;
 }
 
-.pareja-item input {
-    flex: 2; /* Espacio proporcional para el campo */
-    padding: 12px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #778c99;
-    background-color: #ffffff;
-    color: #343a40;
-    font-size: 16px; /* Texto más grande */
-    width: 100%; /* Abarca todo el espacio disponible */
-    box-sizing: border-box; /* Incluye padding en el ancho */
-}
-
-.pareja-item input::placeholder {
-    font-size: 14px; /* Tamaño del texto placeholder */
-    color: #778c99;
-}
-
-.jornada-header {
-    background-color: #f8f9fa; /* Fondo gris claro */
-    font-weight: bold; /* Texto en negrita */
-    text-align: center; /* Centrar el texto */
-    font-size: 16px; /* Tamaño del texto */
-    color: #343a40; /* Color del texto */
-}
-
-.plus-button .material-symbols-outlined {
-    font-size: 24px; /* Ajusta el tamaño del ícono */
-    vertical-align: middle; /* Alineación vertical */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-}
-
-.delete-button .material-symbols-outlined,
-.minimize-button .material-symbols-outlined {
-  font-size: 24px; /* Tamaño de los íconos */
-  vertical-align: middle; /* Alineación vertical */
-  cursor: pointer; /* Cambia el cursor al pasar sobre los íconos */
-}
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-    .jornada-header {
-        font-size: 10px; /* Tamaño reducido en móviles */
-        padding: 10px; /* Espaciado interno */
-    }
-}
-
-/* Ajustes para dispositivos pequeños */
 @media (max-width: 768px) {
-    /* Contenedor para scroll horizontal */
-    .table-container {
-        overflow-x: auto; /* Permite scroll horizontal */
+    .jornada table {
+        display: block;
+        overflow-x: auto;
     }
 
-    table {
-        width: 100%;
-        font-size: 10px; /* Reduce el tamaño del texto */
-    }
-
-    th, td {
-        padding: 8px; /* Reduce el padding para ahorrar espacio */
-    }
-
-    input[type="number"] {
-        width: 100%;
-        font-size: 12px; /* Ajusta el tamaño del texto dentro del input */
-        padding: 6px; /* Reduce el padding */
-    }
-
-    h3 {
-        font-size: 16px; /* Ajusta el tamaño del encabezado de las jornadas */
-        text-align: center;
+    .jornada th,
+    .jornada td {
+        font-size: 12px;
+        padding: 8px;
     }
 }
