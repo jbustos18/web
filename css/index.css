@@ -1,6 +1,7 @@
 /* Main Navigation */
 #main-navigation {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 20px 0;
